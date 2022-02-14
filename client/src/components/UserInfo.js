@@ -1,43 +1,32 @@
 import React from 'react'
-import Modal from 'react-modal/lib/components/Modal';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import LetteredAvatar from 'react-lettered-avatar';
 
-const UserInfo = ({user}) => {
-    const customStyles = {
-        content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)',
-            backgroundColor: '#D2506C',
-            border: '2px solid #D2506C',
-        },
-    };
-    
-    const [modalIsOpen, setIsOpen] = React.useState(false);
-    Modal.setAppElement('#root');
+const UserInfo = () => {
+    const { id } = useParams();
+    const { users } = useSelector(state => state)
+    const user = users.find(elt => elt._id === id)
+    return (
 
-    function openModal() {
-        setIsOpen(true);
-    }
-    function closeModal() {
-        setIsOpen(false);
-    }
-  return (
-    <div> <button onClick={openModal}>Info</button>
-    <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
-    >
-        <div style={{color:"White", textAlign:"center",paddingTop:"20px"}}>
-       <h2>{user.name}</h2>
-       <h3>{user.email}</h3>
-       <h4>{user.phone}</h4></div>
-    </Modal></div>
-  )
+
+        <div class="cardInfo">
+            
+            <div style={{ display: 'flex', marginLeft: "20px" }}>
+                <LetteredAvatar
+                    name={user.name}
+                />
+                 <h3 style={{marginLeft:"20px"}}>{user.name}</h3>
+            </div>
+            <img src="https://findicons.com/files/icons/1994/vista_style_business_and_data/256/users.png" alt="Avatar" width="100%" />
+            <div class="container">
+                
+                <h3>{user.email}</h3>
+                <h4>{user.phone}</h4>
+            </div>
+        </div >
+
+    )
 }
 
 export default UserInfo

@@ -2,8 +2,8 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { DeleteUser, getUsers } from '../redux/action'
 import EditUser from './EditUser'
-import UserInfo from './UserInfo'
  import LetteredAvatar from 'react-lettered-avatar';
+import { Link } from 'react-router-dom'
 
 const UserCard = ({user}) => {
   const dispatch=useDispatch()
@@ -22,9 +22,8 @@ const UserCard = ({user}) => {
       <div className='buttons'>
       <button onClick={()=>{dispatch(DeleteUser(user._id));dispatch(getUsers())}}>Delete</button>
       <EditUser user={user}/>
-      <UserInfo user={user}/>
-      
-      
+      <Link to={`/info/${user._id}`}> <button> Info </button></Link>
+            
       </div>
     </div>
   )
